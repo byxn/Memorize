@@ -9,26 +9,38 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        ZStack(content: {
-//            RoundedRectangle(cornerRadius: 20)
-//                .stroke(lineWidth: 3)
-//            Text("Hello World!")
-//        }).padding(.horizontal).foregroundColor(.red)
-
-//        ZStack(alignment: .center){
-//            RoundedRectangle(cornerRadius: 20)
-//                .stroke(lineWidth: 3)
-//            Text("Hello World!")
-//        }.padding(.horizontal).foregroundColor(.red)
+        HStack(content: {
+            let emojis = ["🐶","🐹","🐰", "🐼"]
+            // 奇怪的for循环语法
+            ForEach(emojis,id: \.self,content: {
+                emoji in CardView(content:emoji)
+            })
+        })
         
+    }
+}
+
+struct CardView: View {
+    
+    @State var isFaceUp: Bool  = true
+    var content: String = ""
+    
+    var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 30)
-                .stroke(lineWidth: 3)
-            Text("Hello World!")
+            let shape = RoundedRectangle(cornerRadius: 20)
+            if isFaceUp {
+                shape.stroke(lineWidth: 3)
+                shape.fill().foregroundColor(.white)
+                Text(content).font(.largeTitle)
+            }else{
+                shape.fill().foregroundColor(.red)
+            }
         }
         .padding()
         .foregroundColor(.primary)
-        
+        .onTapGesture {
+            isFaceUp = !isFaceUp
+        }
     }
 }
 
@@ -52,6 +64,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+//        ContentView()
+//            .preferredColorScheme(.dark)
+//
         ContentView()
+            .preferredColorScheme(.light)
     }
 }
