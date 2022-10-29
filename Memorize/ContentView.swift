@@ -8,28 +8,68 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-   let emojis = ["🐶","🐹","🐰", "🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌"]
-   @State var emojiCount = 3
+    @State var  emojis = ["🐶","🐹","🐰", "🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌"]
+    @State var emojiCount = 10
     
     var body: some View {
         VStack {
+            Text("Memorize!").font(.largeTitle)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
-                    // ForEach 竟然是一个结构体
-                    ForEach(emojis[0...emojiCount],id: \.self,content: {
-                        emoji in CardView(content:emoji).aspectRatio(2/3,contentMode: .fit)
+                  // ForEach 竟然是一个结构体
+                    ForEach(emojis[0..<emojiCount],id: \.self,content: {
+                        emoji in CardView(isFaceUp:true,content:emoji).aspectRatio(2/3,contentMode: .fit)
                     })
                 })
             }
-            HStack {
-                remove
+            HStack(spacing: 1.0) {
+                theme1
                 Spacer()
-                add
+                theme2
+                Spacer()
+                theme3
             }
             .padding()
-            .font(.largeTitle)
+            .font(.title2)
         }
+    }
+    
+    var theme1: some View {
+        Button(action: {
+            emojis = ["🐶","🐹","🐰", "🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌"].shuffled()
+            emojiCount = Int.random(in: 0...emojis.count)
+        }, label: {
+            VStack {
+                Image(systemName: "hare")
+                Text("Thme1")
+            }
+        })
+    }
+    
+    var theme2: some View {
+        Button(action: {
+            emojis = ["🚗","🚕","🚙","🚌","🚎","🏎","🚓","🚑","🚒","🚐","🚛","🚜","🛺","🚔","🛵"].shuffled()
+            emojiCount = Int.random(in: 0...emojis.count)
+        }, label: {
+            VStack {
+                Image(systemName: "car")
+                Text("Thme2")
+            }
+            
+        })
+    }
+    
+    var theme3: some View {
+        Button(action: {
+            emojis = ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇","🍓","🫐","🍈","🍒","🍑","🥭","🍍","🥥","🌶","🥒","🥬","🥦","🥑","🍆","🍅"].shuffled()
+            emojiCount = Int.random(in: 0...emojis.count)
+        }, label: {
+            VStack {
+                Image(systemName: "fork.knife")
+                Text("Thme3")
+            }
+            
+        })
     }
     
     var remove: some View {
@@ -44,7 +84,7 @@ struct ContentView: View {
     
     var add: some View {
         Button(action: {
-            if emojiCount < emojis.count - 1 {
+            if emojiCount < emojis.count  {
                 emojiCount += 1
             }
         }, label: {
@@ -81,6 +121,10 @@ struct CardView: View {
 // : some View  不透明类型
 // {...}  是一个方法
 // 函数的省略和kotlin很像
+// UI的构建和FLutter一毛一样
+
+// 遗留问题
+// 修改数据后isFaceUp状态没有重置
 
 
 
@@ -103,5 +147,6 @@ struct ContentView_Previews: PreviewProvider {
 //
         ContentView()
             .preferredColorScheme(.light)
+            .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }
