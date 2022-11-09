@@ -11,12 +11,14 @@ struct MemoryGame<CardContent> {
     
     private(set) var cards: Array<Card>
     
-    func choose(_ card: Card) {
+   mutating func choose(_ card: Card) {
         // card.isFaceUp.toggle()
         let chosenIndex = index(of: card)
-        var chosenCard = cards[chosenIndex!]
-        chosenCard.isFaceUp.toggle()
-        print("chosenCard: \(chosenCard)")
+        // 复制值
+        // var chosenCard = cards[chosenIndex!]
+        
+        cards[chosenIndex!].isFaceUp.toggle()
+        print("\(cards)")
         
         
     }
