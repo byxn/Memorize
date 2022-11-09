@@ -19,9 +19,16 @@ class EmojiMemoryGame {
         }
     }
     
-    var model: MemoryGame<String> = creatMemoryGame()
+    private var model: MemoryGame<String> = creatMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
-        return model.cards
+        model.cards
     }
+    
+    // MARK: - Intent(S)
+    
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
+    }
+    
 }
