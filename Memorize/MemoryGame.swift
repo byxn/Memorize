@@ -13,11 +13,13 @@ struct MemoryGame<CardContent> {
     
    mutating func choose(_ card: Card) {
         // card.isFaceUp.toggle()
-        let chosenIndex = index(of: card)
+        // if let chosenIndex = index(of: card) {
+        // if let chosenIndex = cards.firstIndex(where: {cardInTheCardsArray in cardInTheCardsArray.id == card.id}) {
+       if let chosenIndex = cards.firstIndex(where: { $0.id == card.id}) {
         // 复制值
         // var chosenCard = cards[chosenIndex!]
-        
-        cards[chosenIndex!].isFaceUp.toggle()
+           cards[chosenIndex].isFaceUp.toggle()
+       }
         print("\(cards)")
         
         
