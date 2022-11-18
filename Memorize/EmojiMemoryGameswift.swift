@@ -11,10 +11,15 @@ import Foundation
 class EmojiMemoryGame: ObservableObject {
     
     
-    static let emojis = ["🐶","🐹","🐰", "🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌"]
+    static var emojis = [
+        "🐼","🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌", "🐶","🐹","🐶","🐰",
+        "🐼","🐼","🐯","🐤","🐸","🐒","🐔","🦊","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌", "🐶","🐹","🐶","🐰",]
+    
+   
     
     static func creatMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsfOfCards: 10) {
+        emojis.shuffle()
+        return MemoryGame<String>(numberOfPairsfOfCards: emojis.count/2) {
             pairIndex in emojis[pairIndex]
         }
     }

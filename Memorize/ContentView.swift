@@ -16,7 +16,7 @@ struct ContentView: View {
             Text("Memorize!").font(.largeTitle)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    // ForEach 竟然是一个结构体
+                    // ForEach是一个结构体
                     ForEach(viewModel.cards) { card in
                           CardView(card: card)
                               .aspectRatio(2/3,contentMode: .fit)
@@ -43,6 +43,8 @@ struct CardView: View {
                 // shape.strokeBorder(lineWidth: 3, antialiased:true)
                 shape.fill().foregroundColor(.white)
                 Text(card.content).font(.largeTitle)
+            }else if card.isMatched {
+                shape.opacity(0)
             }else{
                 shape.fill().foregroundColor(.red)
             }
